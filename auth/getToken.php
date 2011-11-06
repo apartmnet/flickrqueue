@@ -8,8 +8,9 @@
      * the class.
      */
 
+
     require_once("phpFlickr.php");
-    $f = new phpFlickr("<api key>", "<secret>");
+    $f = new phpFlickr("955fca735e5786ff004677fd6a912b70", "27dc9c6fa3937a49");
     
     //change this to the permissions you will need
     $f->auth("read");

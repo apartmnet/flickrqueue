@@ -19,7 +19,21 @@ class Flickr extends CI_Controller {
 	 */
 	public function index()
 	{
+		session_start();
 		$this->load->view('welcome_message');
+		print_r($_SESSION);
+	}
+	
+	public function user() {
+		session_start();
+		if(isset($_SESSION['phpFlickr_auth_token'])) {
+		
+		
+			//attempt to store the token
+			echo $_SESSION['phpFlickr_auth_token'];
+		
+		} 
+	
 	}
 }
 
