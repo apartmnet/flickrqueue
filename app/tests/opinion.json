@@ -1,0 +1,74 @@
+[{
+	"test":"Exists: Get an opinion",
+	"function_to_run":{
+		"name":"exists",
+		"params":"http:\/\/en.wikipedia.org\/wiki\/Cat"
+	},
+	"expectation":"is_numeric"
+},
+{
+	"test":"Exists: Get an invalid opinion",
+	"function_to_run":{
+		"name":"exists",
+		"params":"http:\/\/en.wikipedia.org\/wiki\/Puppy"
+	},
+	"expectation":"is_false"
+},
+{
+	"test":"Get Recent Opinions",
+	"function_to_run":{
+		"name":"get_recent_opinions"
+	},
+	"expectation":"is_array"
+},
+{
+	"test":"Get Users Opinions: User: everyplace, opinion: 2",
+	"function_to_run":{
+		"name":"get_users_opinion",
+		"params":["everyplace","2"]
+	},
+	"expectation":"is_string"
+},
+{
+	"test":"Get Invalid Users Opinions: User: everyplace, opinion: 1",
+	"function_to_run":{
+		"name":"get_users_opinion",
+		"params":["everyplace","1"]
+	},
+	"expectation":"is_false"
+},
+{
+	"test":"Get User Opinions: User: everyplace",
+	"function_to_run":{
+		"name":"get_user_opinions",
+		"params":"everyplace"
+	},
+	"expectation":"is_array"
+},
+{
+	"test":"Get Invalid User Opinions: User: asdf",
+	"function_to_run":{
+		"name":"get_user_opinions",
+		"params":"asdf"
+	},
+	"expectation":"is_false"
+},
+{
+	"test":"Set Opinion: create test opinion",
+	"function_to_run":{
+		"name":"set_opinion",
+		"params":["test opinion", "http://test"]
+	},
+	"expectation":"is_int"
+},
+{
+	"test":"Compare Opinions",
+	"function_to_run":{
+		"name":"compare_opinions",
+		"params":[
+			[{"opinionID":"1", "vote":"up"},{"opinionID":"2", "vote":"up"}],
+			[{"opinionID":"2", "vote":"up"}],[{"opinionID":"3", "vote":"up"}]
+		]
+	},
+	"expectation":"is_array"
+}]
