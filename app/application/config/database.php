@@ -57,10 +57,10 @@ if(isset($_SERVER['DEPLOYED_ENVIRONMENT']) && ($_SERVER['DEPLOYED_ENVIRONMENT'] 
 
 $active_record = TRUE;
 
-$db['local']['hostname'] = 'localhost';
-$db['local']['username'] = '';
-$db['local']['password'] = '';
-$db['local']['database'] = '';
+$db['local']['hostname'] = $_SERVER['DB_HOSTNAME'];
+$db['local']['username'] = $_SERVER['DB_USERNAME'];
+$db['local']['password'] = $_SERVER['DB_PASSWORD'];
+$db['local']['database'] = $_SERVER['DB_DATABASE'];
 $db['local']['dbdriver'] = 'mysql';
 $db['local']['dbprefix'] = '';
 $db['local']['pconnect'] = TRUE;
@@ -73,10 +73,10 @@ $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
 
-$db['pagoda']['hostname'] = '';
-$db['pagoda']['username'] = '';
-$db['pagoda']['password'] = '';
-$db['pagoda']['database'] = '';
+$db['pagoda']['hostname'] = $_SERVER['DB_HOSTNAME'];
+$db['pagoda']['username'] = $_SERVER['DB_USERNAME'];
+$db['pagoda']['password'] = $_SERVER['DB_PASSWORD'];
+$db['pagoda']['database'] = $_SERVER['DB_DATABASE'];
 $db['pagoda']['dbdriver'] = 'mysql';
 $db['pagoda']['dbprefix'] = '';
 $db['pagoda']['pconnect'] = TRUE;
