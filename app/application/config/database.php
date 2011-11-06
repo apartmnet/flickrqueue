@@ -45,7 +45,7 @@
 */
 
 
-if(isset($_SERVER['DEPLOYED_ENVIRONMENT']) && ($_SERVER['DEPLOYED_ENVIRONMENT'] == 'local')) {
+/*if(isset($_SERVER['DEPLOYED_ENVIRONMENT']) && ($_SERVER['DEPLOYED_ENVIRONMENT'] == 'local')) {
 	
 	$active_group = 'local';
 
@@ -53,8 +53,9 @@ if(isset($_SERVER['DEPLOYED_ENVIRONMENT']) && ($_SERVER['DEPLOYED_ENVIRONMENT'] 
 
 	$active_group = 'pagoda';
 
-}
+}*/
 
+$active_group = 'local';
 $active_record = TRUE;
 
 $db['local']['hostname'] = $_SERVER['DB_HOSTNAME'];
@@ -72,22 +73,6 @@ $db['local']['dbcollat'] = 'utf8_general_ci';
 $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
-
-$db['pagoda']['hostname'] = $_SERVER['DB_HOSTNAME'];
-$db['pagoda']['username'] = $_SERVER['DB_USERNAME'];
-$db['pagoda']['password'] = $_SERVER['DB_PASSWORD'];
-$db['pagoda']['database'] = $_SERVER['DB_DATABASE'];
-$db['pagoda']['dbdriver'] = 'mysql';
-$db['pagoda']['dbprefix'] = '';
-$db['pagoda']['pconnect'] = TRUE;
-$db['pagoda']['db_debug'] = TRUE;
-$db['pagoda']['cache_on'] = FALSE;
-$db['pagoda']['cachedir'] = '';
-$db['pagoda']['char_set'] = 'utf8';
-$db['pagoda']['dbcollat'] = 'utf8_general_ci';
-$db['pagoda']['swap_pre'] = '';
-$db['pagoda']['autoinit'] = TRUE;
-$db['pagoda']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
