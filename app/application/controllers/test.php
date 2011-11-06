@@ -30,6 +30,12 @@ class Test extends CI_Controller {
 		echo $this->unit->report();
 	
 	}
+	
+	public function debug() {
+		echo "<pre>";
+		print_r($_SERVER);
+		echo "</pre>";
+	}
 }
 
 /* End of file test.php */
