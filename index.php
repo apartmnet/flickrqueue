@@ -19,5 +19,12 @@
 				<li>Wait until midnight EST. Every night.</li>
 			</ul>
 		</section>
+		<footer>
+			<cite>Brought to you by <a href="http://apartm.net">Apartm.net</a>.</cite>
+			<cite>Built using <a href="http://pagodabox.com">pagodabox</a>, 
+			<a href="http://codeigniter.com">codeigniter</a>, and <a href="http://flickr.com/photos/apartmnet">flickr</a>, 
+			with help from <a href="http://typekit.com">typekit</a> and <a href="http://github.com/apartmnet">github</a>.
+			</cite>
+		</footer>		
 	</body>
 </html>
