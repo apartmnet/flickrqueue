@@ -23,11 +23,27 @@ body>section {
 	
 }
 
+a:link,
+a:active,
+a:visited {
+	color:black;
+	-webkit-transition:background-color .5s, text-decoration .5s;
+}
+
+a:hover {
+	background-color:white;
+	text-decoration:none;
+}
+
 h1 {
 	font-weight:300;
 	font-size:10em;
 	letter-spacing:-.03em;
 	line-height:1em;
+}
+
+h1 a {
+	
 }
 
 h1 span {
@@ -90,7 +106,7 @@ body>section>hgroup ~ ul li:before {
 	}
 }
 
-@media all and (max-width:900px) {
+@media all and (max-width:960px) {
 	
 
 	body {
