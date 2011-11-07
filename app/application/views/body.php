@@ -14,5 +14,9 @@
 				echo "</ul>\r\n";
 				echo "</div>\r\n";
 			
+			} else {
+				echo '<div id="photolist">';
+				echo "<h2>You currently have no photos in your queue.</h2>\n";			
+				echo '</div>';				
 			}?>
 		</section>
