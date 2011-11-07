@@ -30,9 +30,53 @@ class Flickr extends CI_Controller {
 		
 		
 			//attempt to store the token
-			echo $_SESSION['phpFlickr_auth_token'];
+			//echo $_SESSION['phpFlickr_auth_token'];
 		
 		} 
+		
+		
+		
+		$this->load->model("user_model", "user");
+		
+
+		
+
+		$params = array();
+		$params['api_key'] 	= $_SERVER['FLICKR_API_KEY'];
+		$params['secret']	= $_SERVER['FLICKR_SECRET'];
+		$params['token'] = isset($_SESSION['phpFlickr_auth_token']) ? $_SESSION['phpFlickr_auth_token'] : "";
+
+		$this->load->library('phpflickr', $params);
+		
+		
+		
+		$user = $this->phpflickr->test_login();		
+
+		if($this->user->exists($user['id'])) {
+			//user has been stored in the db
+			
+			
+			//do a search
+			$result = $this->phpflickr->photos_search(array("user_id"=>$user['id'], "privacy_filter"=>5, "tags"=>"flickrqueue"));
+			$photos = $result['photo'];
+			
+
+			$photo = $photos[0];
+			print_r($photo);
+			
+		
+
+			$this->phpflickr->photos_setPerms($photo['id'],1,$photo['isfriend'],$photo['isfamily'], 3,3);			
+			
+
+			
+			
+			
+			
+		} else {
+			echo "false on ";
+		}
+		
 	
 	}
 }
