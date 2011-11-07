@@ -11,13 +11,14 @@ class Flickr extends CI_Controller {
 	
 	public function cron() {
 		
-		$condition = FALSE;
-
+		$condition = TRUE;
+		
+		/*
 		$headers = getallheaders();
 		
 		if($headers['User-Agent'] == "flickrqueue-cron") {
 			$condition = TRUE;
-		}
+		}*/
 		
 		if($condition == TRUE) {
 			$this->load->model("user_model", "user");
