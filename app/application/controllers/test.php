@@ -10,7 +10,7 @@ class Test extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
-	
+	/*
 	public function database_test() {
 		$this->load->library('unit_test');
 		$this->load->database();
@@ -36,6 +36,7 @@ class Test extends CI_Controller {
 		print_r($_SERVER);
 		echo "</pre>";
 	}
+	*/
 }
 
 /* End of file test.php */
