@@ -10,29 +10,43 @@ class Users extends CI_Controller {
 	public function add() {
 		session_start();
 		if(!isset($_SESSION['phpFlickr_auth_token'])) {
-		
+			//kick the user out if they're not logged in
 			$this->load->helper('url');
 			$base_url = base_url();
 			header("Location: /auth");
-			//attempt to store the token
-			//echo $_SESSION['phpFlickr_auth_token'];
-		
-		}
-
-		$this->load->model("user_model", "user");
-		$this->load->model("flickr_model", "flickr");
-
-		$user = $this->flickr->user_info();
-
-		if($this->user->exists($user['id'])) {
-			echo "You are already stored in the system. Don't rush it.";
 		} else {
+		
+			//user has come from flickr
+			$this->load->model("user_model", "user");
+			$this->load->model("flickr_model", "flickr");
+	
+			$user = $this->flickr->user_info();
+			$username = $user['username'];
+			$this->load->view("header");
 			
-			$flickrUserID = $user['id'];
-			$token = $_SESSION['phpFlickr_auth_token'];
-			if($newUserID = $this->user->set_user($token, $flickrUserID)) {
-				echo "Congratulations, you have been entered into the db. Your photos will reveal themselves daily now.";
+			if($this->user->exists($user['id'])) {
+			
+				$data = array();
+				$data['message'] = "<p>$username, you're all set. Wait until midnight, then your photos will automatically start updating.</p>";
+				$data['message'] .= "<p>Anti-climactic, right? That's how background services work. Patience will reward you, if you've
+				tagged your photos correctly with 'flickrqueue', and set them to private. Each day, the oldest photo in the flickrqueue will be set to public.</p>";
+				$this->load->view("body", $data);
+
+			} else {
+				
+				$flickrUserID = $user['id'];
+				$token = $_SESSION['phpFlickr_auth_token'];
+				if($newUserID = $this->user->set_user($token, $flickrUserID)) {
+					$data['message'] = "<p>$username, congratulations! You have been entered into the db. Your photos will reveal themselves daily now.</p>";
+					$data['message'] .= "<p>Anti-climactic, right? That's how background services work. Patience will reward you, if you've
+					tagged your photos correctly with 'flickrqueue', and set them to private. Each day, the oldest photo in the flickrqueue will be set to public.</p>";
+					
+				}
+				$this->load->view("body", $data);
+				
 			}
+			$this->load->view("footer");
+			
 		}
 	
 	}
