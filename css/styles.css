@@ -1,0 +1,129 @@
+@import url(html5reset.css);
+html {
+	background-color:white;
+	-webkit-transition:background-color 1s;
+}
+
+body {
+	padding:100px;
+	font-family:futura-pt-1,futura-pt-2,sans-serif;
+	font-style:normal;
+}
+
+body, h1, h2 {
+	-webkit-transition: font-size .5s
+}
+
+body>section {
+	background-color:gainsboro;
+	width:auto;
+	display:block;
+	padding:50px;
+	-webkit-transition: padding 1s;
+	
+}
+
+h1 {
+	font-weight:300;
+	font-size:10em;
+	letter-spacing:-.03em;
+	line-height:1em;
+}
+
+h1 span {
+display:inline-block;
+	letter-spacing:-.06em;
+}
+
+h2{
+	line-height:1em;
+	margin-left:.35em;
+	font-weight:400;
+	font-size:1.5em;
+}
+
+body>section>ul {
+	counter-reset:steps;
+}
+
+body>section>ul>li {
+	counter-increment:steps;
+}
+
+body>section>ul>li:before {
+	content:counter(steps);
+}
+
+body>section>hgroup ~ ul {
+}
+
+body>section>hgroup ~ ul li {
+	line-height:1.5em;
+}
+
+body>section>hgroup ~ ul li:before {
+	background-color:white;
+	border:1px solid white;
+	border-radius:1.5em;
+	display:inline-block;
+	width:1.5em;
+	text-align:center;
+	padding:.5em;
+	margin:.5em;
+}
+
+@media all and (min-width:1100px) {
+	body {
+		font-size:1.2em;
+	}
+}
+
+@media all and (min-width:1380px) {
+	body {
+		font-size:1.5em;
+	}
+}
+
+@media all and (min-width:1500px) {
+	body {
+		font-size:1.8em;
+	}
+}
+
+@media all and (max-width:900px) {
+	
+
+	body {
+		padding:30px;
+	}
+	
+	body>section {
+		padding:10px;
+	}
+	
+	
+}
+
+@media all and (max-width:650px) {
+	html {
+		background-color:gainsboro;
+	}
+
+	body {
+		padding:0;
+	}
+	
+	body>section {
+		padding:20px;
+	}
+	
+	h1 {
+		font-size:5em;
+	}
+	
+	h2 {
+		font-size:1.2em;
+	}
+	
+	
+}

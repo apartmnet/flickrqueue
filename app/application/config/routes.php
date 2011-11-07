@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "flickr";
+$route['default_controller'] = "users/add";
 $route['404_override'] = '';
 
 

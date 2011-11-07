@@ -13,19 +13,14 @@ class Users extends CI_Controller {
 		
 			$this->load->helper('url');
 			$base_url = base_url();
-			header("Location: $base_url");
+			header("Location: /auth");
 			//attempt to store the token
 			//echo $_SESSION['phpFlickr_auth_token'];
 		
-		} else {
-			//print_r($_SESSION);
-		}	
-		
-		
-		
+		}
+
 		$this->load->model("user_model", "user");
 		$this->load->model("flickr_model", "flickr");
-
 
 		$user = $this->flickr->user_info();
 
@@ -40,6 +35,15 @@ class Users extends CI_Controller {
 			}
 		}
 	
+	}
+	
+	public function logout() {
+		session_start();
+		unset($_SESSION['phpFlickr_auth_token']);
+		session_destroy();
+		
+		$this->load->helper('url');
+		header("Location: /");
 	}
 
 }
