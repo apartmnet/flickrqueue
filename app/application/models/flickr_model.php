@@ -26,5 +26,23 @@ class Flickr_model extends CI_Model {
     	return $this->phpflickr->test_login();		
     }
 
+	function get_private_queued_photo($token, $flickrUserID) {
 
+		//token has to be set on each request, as each user's private photos only come back with their specific auth key
+		$this->phpflickr->setToken($token);
+
+		$result = $this->phpflickr->photos_search(array("user_id"=>$flickrUserID, 
+														"privacy_filter"=>5, 
+														"tags"=>"flickrqueue", 
+														"per_page"=>1, 
+														"sort"=>"date-posted-asc"));
+		if($result['total'] > 0) {
+			//throw away the metadata, just return the photos		
+			$photos = $result['photo'];
+			return $photos[0];
+		} else {
+			return false;
+		}
+	}
+		
 }

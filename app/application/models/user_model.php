@@ -50,5 +50,20 @@ class User_model extends CI_Model {
 
 	}
 	
+	function get_all_users() {
+	
+		$select_query = "SELECT token, flickrUserID FROM users";
+
+		$query = $this->db->query($select_query);
+
+		if($query->num_rows > 0) {
+			$results = $query->result();
+
+			return $results;
+		} else {
+			return FALSE;
+		}
+	}
+	
 
 }

@@ -42,7 +42,6 @@ class Users extends CI_Controller {
 	
 	}
 
-	
 }
 
 /* End of file users.php */

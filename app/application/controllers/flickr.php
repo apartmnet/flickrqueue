@@ -2,21 +2,6 @@
 
 class Flickr extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function index()
 	{
 		session_start();
@@ -24,60 +9,32 @@ class Flickr extends CI_Controller {
 		print_r($_SESSION);
 	}
 	
-	public function user() {
-		session_start();
-		if(isset($_SESSION['phpFlickr_auth_token'])) {
-		
-		
-			//attempt to store the token
-			//echo $_SESSION['phpFlickr_auth_token'];
-		
-		} 
-		
-		
+	public function cron() {
 		
 		$this->load->model("user_model", "user");
+		$this->load->model("flickr_model", "flickr");
 		
-
+		$users = $this->user->get_all_users();
 		
-
-		$params = array();
-		$params['api_key'] 	= $_SERVER['FLICKR_API_KEY'];
-		$params['secret']	= $_SERVER['FLICKR_SECRET'];
-		$params['token'] = isset($_SESSION['phpFlickr_auth_token']) ? $_SESSION['phpFlickr_auth_token'] : "";
-
-		$this->load->library('phpflickr', $params);
+		//print_r($users);
+		//Array ( [0] => stdClass Object ( [token] => 72157628069256914-5d47b8b9a14261be [flickrUserID] => 59663818@N00 ) ) 
 		
-		
-		
-		$user = $this->phpflickr->test_login();		
-
-		if($this->user->exists($user['id'])) {
-			//user has been stored in the db
+		foreach($users as $user) {
+			
+			$token = $user->token;
+			$flickrUserID = $user->flickrUserID;
 			
 			
-			//do a search
-			$result = $this->phpflickr->photos_search(array("user_id"=>$user['id'], "privacy_filter"=>5, "tags"=>"flickrqueue"));
-			$photos = $result['photo'];
+			$photo = $this->flickr->get_private_queued_photo($token, $flickrUserID);
 			
-
-			$photo = $photos[0];
-			print_r($photo);
+			//print_r($photos);	
+			//Array ( [id] => 6320355488 [owner] => 59663818@N00 [secret] => 77db86885a [server] => 6098 [farm] => 7 [title] => 1 [ispublic] => 0 [isfriend] => 0 [isfamily] => 0 )
 			
-		
-
-			$this->phpflickr->photos_setPerms($photo['id'],1,$photo['isfriend'],$photo['isfamily'], 3,3);			
-			
-
-			
-			
-			
-			
-		} else {
-			echo "false on ";
-		}
-		
-	
+			//update the privacy on that photo!
+			if($this->phpflickr->photos_setPerms($photo['id'],1,$photo['isfriend'],$photo['isfamily'], 3,3)) {
+				echo "Photo " . $photo['id'] . " updated for user $flickrUserID";
+			}	
+		}	
 	}
 }
 
