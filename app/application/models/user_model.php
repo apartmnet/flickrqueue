@@ -15,40 +15,31 @@ class User_model extends CI_Model {
        	$this->load->database();
     }
 
-
-	function test() {
-
-	}
-	
-
 	function exists($flickrUserID) {
 
-		$select_query = "SELECT id FROM users WHERE flickrUserID = '$flickrUserID' LIMIT 1";
+		$select_query = "SELECT flickrUserID FROM users WHERE flickrUserID = '$flickrUserID' LIMIT 1";
 
-		$token = $this->db->query($select_query);
+		$results = $this->db->query($select_query);
 
-		if($token->num_rows > 0) {
-			$token = $token->result();
-			return (int)$token[0]->id;
+		if($results->num_rows > 0) {
+			$result = $results->result();
+			return (int)$result[0]->flickrUserID;
 		} else {
 			return FALSE;
 		}
 	
 	}
-	
 
-	
-	
-	function set_opinion($label, $url) {
+	function set_user($token, $flickrUserID) {
 		
 
-		if($opinionID = $this->exists($url)) {
+		if($flickrUserID == $this->exists($flickrUserID)) {
 
-			return $opinionID;
+			return $flickrUserID;
 			
-		} elseif($label && $url) {
+		} elseif($token && $flickrUserID) {
 
-			$insert_query = "INSERT INTO opinions (label, url) VALUES ('$label', '$url')";
+			$insert_query = "INSERT INTO users (token, flickrUserID) VALUES ('$token', '$flickrUserID')";
 			$this->db->query($insert_query);
 						
 			return $this->db->insert_id();
