@@ -2,12 +2,6 @@
 
 class Flickr_model extends CI_Model {
 
-	/* example variables
-    var $title   = '';
-    var $content = '';
-    var $date    = '';
-	*/
-	
     function __construct()
     {
         // Call the Model constructor
@@ -42,6 +36,15 @@ class Flickr_model extends CI_Model {
 			return $photos[0];
 		} else {
 			return false;
+		}
+	}
+	
+	function publicize($photo) {
+	
+		if($this->phpflickr->photos_setPerms($photo['id'],1,$photo['isfriend'],$photo['isfamily'], 3,3)) {
+			return TRUE;
+		} else {
+			return FALSE;
 		}
 	}
 		

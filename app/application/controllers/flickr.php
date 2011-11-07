@@ -11,27 +11,42 @@ class Flickr extends CI_Controller {
 	
 	public function cron() {
 		
-		$this->load->model("user_model", "user");
-		$this->load->model("flickr_model", "flickr");
+		$condition = FALSE;
+
+		$headers = getallheaders();
 		
-		$users = $this->user->get_all_users();
-
-		if(count($users) > 0) {
-
-			foreach($users as $user) {
-				
-				$token = $user->token;
-				$flickrUserID = $user->flickrUserID;
-								
-				$photo = $this->flickr->get_private_queued_photo($token, $flickrUserID);
-
-				//update the privacy on that photo!
-				if($this->phpflickr->photos_setPerms($photo['id'],1,$photo['isfriend'],$photo['isfamily'], 3,3)) {
-					echo "Photo " . $photo['id'] . " updated for user $flickrUserID";
+		if($headers['User-Agent'] == "flickrqueue-cron") {
+			$condition = TRUE;
+		}
+		
+		if($condition == TRUE) {
+			$this->load->model("user_model", "user");
+			$this->load->model("flickr_model", "flickr");
+			
+			$users = $this->user->get_all_users();
+	
+			if(count($users) > 0) {
+	
+				foreach($users as $user) {
+					
+					$token = $user->token;
+					$flickrUserID = $user->flickrUserID;
+									
+					$photo = $this->flickr->get_private_queued_photo($token, $flickrUserID);
+	
+					//update the privacy on that photo!
+	
+					if($this->flickr->publicize($photo)) {
+						echo "Photo " . $photo['id'] . " updated for user $flickrUserID";				
+					} else {
+						echo "Failed to update photo" . $photo['id'] . "for user $flickrUserID";
+					}
 				}	
-			}	
+			} else {
+				echo "No users";
+			}
 		} else {
-			echo "No users";
+			echo "Access forbidden.";
 		}
 	}
 }
