@@ -20,6 +20,7 @@ class Flickr_model extends CI_Model {
     	return $this->phpflickr->test_login();		
     }
 
+	//get only the specifically next photo. Optimized for fast returns.
 	function get_private_queued_photo($token, $flickrUserID) {
 
 		//token has to be set on each request, as each user's private photos only come back with their specific auth key
@@ -38,6 +39,34 @@ class Flickr_model extends CI_Model {
 			return false;
 		}
 	}
+	
+	//get the next 10 photos in a queue
+	function get_private_queued_photos($token, $flickrUserID, $limit = '10') {
+	
+		//token has to be set on each request, as each user's private photos only come back with their specific auth key
+		$this->phpflickr->setToken($token);
+
+		$result = $this->phpflickr->photos_search(array("user_id"=>$flickrUserID, 
+														"privacy_filter"=>5, 
+														"tags"=>"flickrqueue", 
+														"per_page"=>$limit, 
+														"sort"=>"date-posted-asc"));
+		if($result['total'] > 0) {
+			//throw away the metadata, just return the photos		
+			$photos = $result['photo'];
+			
+			//get thumbnails
+			foreach($photos as $key => $photo) {
+				$thumbs = $this->phpflickr->photos_getSizes($photo['id']);
+				$photos[$key]['thumb'] = $thumbs[0]['source'];
+			}
+
+			return $photos;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	function publicize($photo) {
 	

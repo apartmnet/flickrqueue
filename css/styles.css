@@ -58,6 +58,20 @@ h2{
 	font-size:1.5em;
 }
 
+#photolist h2 {
+	margin-top:1em;
+	margin-left:.4rem;
+}
+
+#photolist>ul {
+
+	margin-left:.6rem;
+}
+
+#photolist>ul>li {
+	display:inline;
+}
+
 body>section>ul {
 	counter-reset:steps;
 }
