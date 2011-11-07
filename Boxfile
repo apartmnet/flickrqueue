@@ -4,7 +4,7 @@ web1: #component type & number
     #- /var/cache
     #- /var/sessions
   document_root: /
-  php_version: 5.3.6
+  php_version: 5.3.8
   php_extensions:
     - mysql
     - gd
