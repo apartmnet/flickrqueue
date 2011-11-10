@@ -24,8 +24,10 @@ class Users extends CI_Controller {
 			$username = $user['username'];
 			$this->load->view("header");
 			
+			$flickrUserID = $user['id'];
+
 			if($this->user->exists($user['id'])) {
-				$flickrUserID = $user['id'];
+				
 				$token = $_SESSION['phpFlickr_auth_token'];
 
 				$data = array();
@@ -35,9 +37,9 @@ class Users extends CI_Controller {
 
 			} else {
 				
+				$token = $_SESSION['phpFlickr_auth_token'];
 				if($newUserID = $this->user->set_user($token, $flickrUserID)) {
 					$flickrUserID = $newUserID;
-					$token = $_SESSION['phpFlickr_auth_token'];
 
 					$data['message'] = "<p>$username, congratulations! You have been entered into the db. Your photos will reveal themselves daily now.</p>";
 					$data['message'] .= "<p>Anti-climactic, right? That's how background services work. Patience will reward you, if you've
